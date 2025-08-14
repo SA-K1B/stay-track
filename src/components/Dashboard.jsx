@@ -1,7 +1,7 @@
 const Dashboard = () => {
     return (
         <>
-            <h1>Welcome to Stay Track</h1>
+            <h1>Welcome to Stay Track Dashboard</h1>
         </>
     )
 }
