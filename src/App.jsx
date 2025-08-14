@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 // Auth Components
 import SignUpForm from './components/auth/SignUpForm'
 import LogIn from './components/auth/LogIn'
 import Home from './components/Home'
+import RoomManagement from './components/admin/roomManagement'
 import { useAuth, AuthProvider } from './components/auth/AuthProvider'
 
 // Layout Components
@@ -15,19 +14,37 @@ import AppLayout from './components/layout/AppLayout'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
 function AppRoutes() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth() // Make sure AuthProvider returns loading
   console.log("Current user in app.jsx:", user)
+  console.log("Loading state:", loading)
+  
+  // Show loading screen while checking authentication
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+          <p className="text-lg text-gray-600">Loading Stay Track...</p>
+        </div>
+      </div>
+    )
+  }
   
   if (user) {
     // User is logged in - show app with layout
     return (
       <Routes>
         <Route path='/' element={<AppLayout />}>
-          {/* Default route - redirect to dashboard */}
+          {/* Default route - show Home */}
           <Route index element={<Home />} />
           
-          {/* Catch all - redirect to dashboard */}
-          {/* <Route path='*' element={<Navigate to="/" />} /> */}
+          {/* Admin routes */}
+          <Route path='rooms' element={<RoomManagement/>}/> {/* Fixed: no leading slash */}
+          <Route path='staff' element={<div className="p-6"><h1 className="text-2xl font-bold">Staff Management</h1><p>Coming soon...</p></div>}/>
+          <Route path='settings' element={<div className="p-6"><h1 className="text-2xl font-bold">Settings</h1><p>Coming soon...</p></div>}/>
+          
+          {/* Catch all - redirect to home */}
+          <Route path='*' element={<Navigate to="/" />} />
         </Route>
       </Routes>
     )

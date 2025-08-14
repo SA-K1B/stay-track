@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useAuth } from '../auth/AuthProvider';
 import { signOut } from "firebase/auth";
-import auth from '../../config/firebase';
+import { auth } from '../../config/firebase';
 
 const Header = () => {
   const { user, logout } = useAuth();

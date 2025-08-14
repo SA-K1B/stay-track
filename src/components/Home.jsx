@@ -1,7 +1,7 @@
 // Home.jsx - Simple Tailwind Styled Home with Logout
 import { useState } from "react";
 import { signOut } from "firebase/auth";
-import auth from '../config/firebase';
+import { auth } from '../config/firebase';
 
 const Home = () => {
     const [loading, setLoading] = useState(false)

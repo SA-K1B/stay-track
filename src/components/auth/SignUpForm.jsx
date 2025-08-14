@@ -1,6 +1,6 @@
 // SignUpForm.jsx - Simple Tailwind Styled Sign Up Form
 import { useState } from "react";
-import auth from '../../config/firebase'
+import { auth } from '../../config/firebase'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 
